@@ -104,28 +104,31 @@
         const numbers = /[0-9]/g;
         const specials = /[?=.*!@#$%^&*]/g;
 
-        function safetyTooShort () {
+        function safetyTooShort() {
             textSafetyPassword.textContent = 'too short';
             textSafetyPassword.classList.remove('safety-password-okay', 'safety-password-good', 'safety-password-strong');
             lineSafetyPassword.classList.remove('line-safety-password-okay', 'line-safety-password-good', 'line-safety-password-strong');
             textSafetyPassword.classList.add('safety-password-too-short');
             lineSafetyPassword.classList.add('line-safety-password-too-short');
         }
-        function safetyOkay () {
+        
+        function safetyOkay() {
             textSafetyPassword.textContent = 'okay';
             textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-good', 'safety-password-strong');
             lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-good', 'line-safety-password-strong');
             textSafetyPassword.classList.add('safety-password-okay');
             lineSafetyPassword.classList.add('line-safety-password-okay');
         }
-        function safetyGood () {
+        
+        function safetyGood() {
             textSafetyPassword.textContent = 'good';
             textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-okay', 'safety-password-strong');
             lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-okay', 'line-safety-password-strong');
             textSafetyPassword.classList.add('safety-password-good');
             lineSafetyPassword.classList.add('line-safety-password-good');
         }
-        function safetyStrong () {
+        
+        function safetyStrong() {
             textSafetyPassword.textContent = 'strong';
             textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-okay', 'safety-password-good');
             lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-okay', 'line-safety-password-good');
