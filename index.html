@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .title {
+            font-size: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .input-password {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #777676;
+            border-right: none;
+
+            font-size: 20px;
+        }
+
+        .input-password:focus {
+            outline: none;
+        }
+
+        .safety-password {
+            padding: 10px; 
+            position: absolute;
+            border: 1px solid #777676;
+            border-left: none;
+            width: 150px;
+
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic;
+            text-align: right;         
+        }
+
+        .safety-password-too-short {
+            color: crimson;
+        }
+
+        .safety-password-okay {
+            color: lightskyblue;
+        }
+
+        .safety-password-good {
+            color: #ffbf00;
+        }
+
+        .safety-password-strong {
+            color: #0c973f;
+        }
+
+        .line-safety-password {
+            width: 399px;
+            height: 3px;
+
+            background-color: white;
+        }
+
+        .line-safety-password-too-short {
+            width: 100px;
+            height: 3px;
+
+            background-color: crimson;
+        }
+
+        .line-safety-password-okay {
+            width: 200px;
+            height: 3px;
+
+            background-color: lightskyblue;
+        }
+
+        .line-safety-password-good {
+            width: 300px;
+            height: 3px;
+
+            background-color: #ffbf00;
+        }
+
+        .line-safety-password-strong {
+            width: 399px;
+            height: 3px;
+
+            background-color: #0c973f;
+        }
+    </style>
+</head>
+<body class="page">
+    <h1 class="title">Проверьте надежность вашего пароля</h1>
+    <div>
+        <input class="input-password" placeholder="Введите пароль" type="password">
+        <span class="safety-password">...</span>
+    </div>
+    <div class="line-safety-password"></div>
+    <script>
+        const inputPassword = document.querySelector('.input-password');
+        const textSafetyPassword = document.querySelector('.safety-password');
+        const lineSafetyPassword = document.querySelector('.line-safety-password');
+
+        const letters = /[a-zA-Z]/g;
+        const numbers = /[0-9]/g;
+        const specials = /[?=.*!@#$%^&*]/g;
+
+        function safetyTooShort () {
+            textSafetyPassword.textContent = 'too short';
+            textSafetyPassword.classList.remove('safety-password-okay', 'safety-password-good', 'safety-password-strong');
+            lineSafetyPassword.classList.remove('line-safety-password-okay', 'line-safety-password-good', 'line-safety-password-strong');
+            textSafetyPassword.classList.add('safety-password-too-short');
+            lineSafetyPassword.classList.add('line-safety-password-too-short');
+        }
+        function safetyOkay () {
+            textSafetyPassword.textContent = 'okay';
+            textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-good', 'safety-password-strong');
+            lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-good', 'line-safety-password-strong');
+            textSafetyPassword.classList.add('safety-password-okay');
+            lineSafetyPassword.classList.add('line-safety-password-okay');
+        }
+        function safetyGood () {
+            textSafetyPassword.textContent = 'good';
+            textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-okay', 'safety-password-strong');
+            lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-okay', 'line-safety-password-strong');
+            textSafetyPassword.classList.add('safety-password-good');
+            lineSafetyPassword.classList.add('line-safety-password-good');
+        }
+        function safetyStrong () {
+            textSafetyPassword.textContent = 'strong';
+            textSafetyPassword.classList.remove('safety-password-too-short', 'safety-password-okay', 'safety-password-good');
+            lineSafetyPassword.classList.remove('line-safety-password-too-short', 'line-safety-password-okay', 'line-safety-password-good');
+            textSafetyPassword.classList.add('safety-password-strong');
+            lineSafetyPassword.classList.add('line-safety-password-strong');
+        }
+
+        inputPassword.addEventListener('input', function(event) {
+            const password = event.target.value;
+            const passwordArr = password.split('');
+  
+            if (passwordArr.length < 6) {
+                safetyTooShort();
+            } 
+            if (passwordArr.length >= 6) {
+                safetyOkay();
+            }
+            if (passwordArr.length >= 6 && 
+                password.match(letters) && 
+                password.match(numbers)) 
+            {
+                safetyGood();
+            }
+            if (passwordArr.length >= 6 && 
+                password.match(letters) && 
+                password.match(numbers) &&
+                password.match(specials)) 
+            {
+                safetyStrong();
+            }
+            if (password === '') {
+                textSafetyPassword.textContent = '...';
+                textSafetyPassword.classList.remove('safety-password-too-short');
+                lineSafetyPassword.classList.remove('line-safety-password-too-short');
+            }
+        });
+    </script>
+</body>
+</html>
